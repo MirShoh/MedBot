@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 # Google Cloud Vision API sozlamalari
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"D:\ARXIV\Dasturlar\MirShoh\MedBot (with Gemini AI)\medbot-vision-key.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"D:\ARXIV\Dasturlar\MirShoh\MedBot (with Gemini AI)\AR bilan sinov\medbotvision-82b84664dacd.json"
 vision_client = vision.ImageAnnotatorClient()
 
 # Mashhur dori nomlari ro‘yxati
