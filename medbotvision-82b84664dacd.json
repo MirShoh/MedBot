@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "medbotvision",
+  "private_key_id": "82b84664dacd2bf3cbe090f25cf903829369d148",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDQjKfDRaZFirey\nd0QnBgTqp/FWwxw2e0nx7aKaQQcC37PKtEUIUvG7AI4yUsw7p84awfDOGSUAW+j6\ndt7cA09Qmc+qupVNqc5mR7j1paWXP56NyVHv3WFnCTQmg3ENnlubD9/vG48i2vza\nyk3ERNBKe/nA8Zn3IktNkwE8y5/Gl0GMvjGVaJ7GOsrFHholKiWa5Tzp00CzsOtR\nJnWjrGjqdIKz4HTvNYNMbiFVWqwL3RYCxDOuc0fZ6dF5xlnQ/ram3/EyXFPsMZwT\nvHnDK7rbnzuFF+TeBmf0ynHhgJeDgAXQCyHzcB1I7NC8ydyI+inELeiNeO3sxpYi\nEF3ynmrbAgMBAAECggEAA6WSAW4kXC7yy2IehPgr+dZ59+Rth95cCqj3IO9mKfyz\nbiX81wpsQ7LcybB89cYXaoxdo5z48qqoxkhx2TMNngEyim+80KDZhRxX9aOx45Uv\nNpeAoUsjuuOET/AYd/5+55U9ezbmJ9vgdAr5lScG5WaJlYAkCxhEbNTXPrLo1lYi\nriqS2uUC7a3yrVQQE4Qvc5bw9Xc9M4lV7i6vTaXiGjdtNyypvi2+GiEpN0kQEqh2\nwlMiiE4Klk/gQF9cjnbs81lLRXBBnzIABIDNaPQL32i0ynhHbn5y3rh2U8m53pDS\n2SuLHaf1Err29PpOZ+Cjp64B+vSY9pgG744SOa1mcQKBgQDyh4rfmm0iUsVAw58y\n9T3x/bZ0f9uz1MWx581gLDvQqo9A6yAeRko7yxTzGD4vK5Qnkay58D8hs74VATWv\nVoC7mrJl0iKloX7nfzjRhrMcqycBQlECNoO/QiusA/Y7ybdU7Sx9vhu5hjMQtPrm\nHV3zRGOLJXqjcMc0gyS6TIr5LwKBgQDcIfXiaAY/iSe4obirafHLHqihAdM2eHz9\npt1xbViGW0D404A+yv0WY5RM91pJHO0G1ohRNkHMt0ShKZKxOAnzZCMhU9I9YZFf\nlMcjmYVjyLB54u3GyCbEIuiz8Er+SQrxq2HtqFtgCGnZEAPRvnnqeg7L/YhciS3z\nXJLH5LUmFQKBgFK8RHbVQoej/uCCG4wRt2kXKSgC+hsV6b8wGZLGZD1iAe6eh11s\nkyRkuifXzFbhIfCBtI/V0mOX4q9ds0e2VcIqGtO7ZNBmEFm+v85SikWsaWj3i5Ua\nrcUQOL+8tkJdJOqW4kefE+wtSLxZUQIxYHx9hwvP5E9fSMW0O1JGjF5HAoGBAJ3Y\nWCjFcJ2EapAQnouDR1bfoAj7dwka8n0rdqQLxStqKbeCaPYdtcalFsTtpLbCYA/E\nKzEYl6wESdjKJ56d0TzONAaExT8wQ/5mfzi+r5AyaqCroNYl1O5VHclQ52VY2Nkb\ni/fO/d5pigSUYDi4vVDtvsh0/p9j2igj3Dgrfd1VAoGAcbHrTP5+fmpHfK3ti11w\ngZveXT8i5ryRc8sPyJTWhsjCxTYJVy6t5vXrBjEpu8EGI0SObF3rf69GAh7pmde0\nXdvzwekReGKx2FIHc475edsRzO/td5hIsGFsiGaT6x5JMb71bRFUPJuIRa4xbHfk\nQcn3Oy/81f95GcUKh99EdjI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "medbot@medbotvision.iam.gserviceaccount.com",
+  "client_id": "112142534569112843689",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/medbot%40medbotvision.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
