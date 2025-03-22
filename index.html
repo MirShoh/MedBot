@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>AR Dori Sinovi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+    <a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         <a-marker type="pattern" url="paracetamol.patt">
             <a-text id="drug-info" value="Dori ma’lumotlari qidirilmoqda..." 
                     position="0 0.5 0" color="black" width="2" align="center"></a-text>
@@ -18,38 +18,30 @@
 
     <script>
         window.onload = function() {
-            async function captureAndAnalyze() {
-                const video = document.querySelector('video');
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                canvas.getContext('2d').drawImage(video, 0, 0);
-                const imageData = canvas.toDataURL('image/png');
+            // Kamerani avtomatik ishga tushirish uchun AR.js’ga tayanish
+            const scene = document.querySelector('a-scene');
+            scene.addEventListener('loaded', function () {
+                console.log("AR sahifasi yuklandi, kamera ishga tushmoqda...");
+            });
 
-                try {
-                    const response = await fetch('http://localhost:5000/analyze', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ image: imageData })
-                    });
-                    const result = await response.json();
-                    document.getElementById('drug-info').setAttribute('value', result.drug_info);
-                } catch (error) {
-                    document.getElementById('drug-info').setAttribute('value', 'Xato: Server bilan bog‘lanib bo‘lmadi');
-                }
+            // Statik ma’lumot bilan sinov (Flasksiz)
+            function updateDrugInfo() {
+                const dori_nomi = "PARACETAMOL"; // Bu yerda Vision API qo‘shilishi mumkin
+                const drug_info = `Dori: ${dori_nomi}\nFoydasi: Og‘riq va isitma uchun`;
+                document.getElementById('drug-info').setAttribute('value', drug_info);
             }
 
-            // Har 3 soniyada yangilash
-            setInterval(captureAndAnalyze, 3000);
-        };
+            // Marker aniqlanganda ma’lumotni yangilash
+            const marker = document.querySelector('a-marker');
+            marker.addEventListener('markerFound', function () {
+                updateDrugInfo();
+            });
 
-        navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            console.log("Kamera ruxsati olindi");
-        })
-        .catch(err => {
-            console.error("Kamera ruxsati olinmadi:", err);
-        });
+            // Agar marker yo‘qolsa, standart xabar
+            marker.addEventListener('markerLost', function () {
+                document.getElementById('drug-info').setAttribute('value', "Dori ma’lumotlari qidirilmoqda...");
+            });
+        };
     </script>
 </body>
 </html>
