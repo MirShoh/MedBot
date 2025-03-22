@@ -18,26 +18,55 @@
 
     <script>
         window.onload = function() {
-            // Kamerani avtomatik ishga tushirish uchun AR.js’ga tayanish
             const scene = document.querySelector('a-scene');
             scene.addEventListener('loaded', function () {
-                console.log("AR sahifasi yuklandi, kamera ishga tushmoqda...");
+                console.log("AR sahifasi yuklandi...");
             });
-
-            // Statik ma’lumot bilan sinov (Flasksiz)
-            function updateDrugInfo() {
-                const dori_nomi = "PARACETAMOL"; // Bu yerda Vision API qo‘shilishi mumkin
-                const drug_info = `Dori: ${dori_nomi}\nFoydasi: Og‘riq va isitma uchun`;
-                document.getElementById('drug-info').setAttribute('value', drug_info);
+    
+            async function captureAndAnalyze() {
+                const video = document.querySelector('video');
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const imageData = canvas.toDataURL('image/png').split(',')[1];
+    
+                const apiKey = "AIzaSyDwfe2AzAh-gtQuqVTw3a7tDTOaVHLpZlA";
+                const url = `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`;
+                const body = {
+                    "requests": [{
+                        "image": {"content": imageData},
+                        "features": [{"type": "TEXT_DETECTION"}]
+                    }]
+                };
+    
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(body)
+                    });
+                    const result = await response.json();
+                    const full_text = result.responses[0].textAnnotations[0].description.toLowerCase();
+                    const lines = full_text.split('\n');
+                    let dori_nomi = "Noma'lum";
+                    for (let line of lines) {
+                        if (line.toUpperCase() in COMMON_DRUGS) {
+                            dori_nomi = line.toUpperCase();
+                            break;
+                        }
+                    }
+                    const drug_info = `Dori: ${dori_nomi}\nFoydasi: Og‘riq va isitma uchun`;
+                    document.getElementById('drug-info').setAttribute('value', drug_info);
+                } catch (error) {
+                    document.getElementById('drug-info').setAttribute('value', 'Xato: ' + error);
+                }
             }
-
-            // Marker aniqlanganda ma’lumotni yangilash
+    
             const marker = document.querySelector('a-marker');
             marker.addEventListener('markerFound', function () {
-                updateDrugInfo();
+                captureAndAnalyze();
             });
-
-            // Agar marker yo‘qolsa, standart xabar
             marker.addEventListener('markerLost', function () {
                 document.getElementById('drug-info').setAttribute('value', "Dori ma’lumotlari qidirilmoqda...");
             });
