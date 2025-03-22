@@ -5,14 +5,51 @@
     <title>AR Dori Sinovi</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs="sourceType: webcam;">
-        <a-marker preset="hiro">
-            <a-text value="Dori: PARACETAMOL\nFoydasi: Og‘riq va isitma uchun" 
+    <a-scene embedded arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+        <a-marker type="pattern" url="paracetamol.patt">
+            <a-text id="drug-info" value="Dori ma’lumotlari qidirilmoqda..." 
                     position="0 0.5 0" color="black" width="2" align="center"></a-text>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
+
+    <script>
+        window.onload = function() {
+            async function captureAndAnalyze() {
+                const video = document.querySelector('video');
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                const imageData = canvas.toDataURL('image/png');
+
+                try {
+                    const response = await fetch('http://localhost:5000/analyze', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ image: imageData })
+                    });
+                    const result = await response.json();
+                    document.getElementById('drug-info').setAttribute('value', result.drug_info);
+                } catch (error) {
+                    document.getElementById('drug-info').setAttribute('value', 'Xato: Server bilan bog‘lanib bo‘lmadi');
+                }
+            }
+
+            // Har 3 soniyada yangilash
+            setInterval(captureAndAnalyze, 3000);
+        };
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            console.log("Kamera ruxsati olindi");
+        })
+        .catch(err => {
+            console.error("Kamera ruxsati olinmadi:", err);
+        });
+    </script>
 </body>
 </html>
